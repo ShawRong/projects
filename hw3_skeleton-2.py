@@ -26,12 +26,13 @@ def merge_data(user_action_parsed, product_category_parsed):
     return merged_data
 
 def filter_data(merged_data):
-    """Filter out records that are not purchases, favorites, or add to cart"""
-    to_keep = ['purchase', 'favorite', 'cart']
+    """Filter out records that are not purchases, favorites, view details or add to cart"""
+    to_keep = ['purchase', 'favorite', 'add_to_cart', 'view_details']
     filtered_data = merged_data.filter(lambda x: x[3] in to_keep)
     
-    print("Filtered data: 'purchase', 'favorite', 'cart'")
-    filter_data.foreach(lambda x: print(x))
+    # (user_name, product_name, category, action)
+    print("Filtered data: (user_name, product_name, category, action)")
+    filtered_data.foreach(lambda x: print(x))
     return filtered_data
 
 def analyze_user_behavior(filtered_data):
@@ -52,8 +53,8 @@ def analyze_user_behavior(filtered_data):
     # (user_name, [product_name])
     top_products = top_products.groupByKey().mapValues(list)
 
-    print("Merged data: (user_name, product_name, category, action)")
-    merged_data.foreach(lambda x: print(x))
+    print("top products: (user_name, [product_name])")
+    top_products.foreach(lambda x: print(x))
     return top_products
 
 
@@ -76,10 +77,12 @@ def generate_recommendations(user_most_interested, product_category_parsed):
     ).reduceByKey(
         lambda a, b: a + b 
     ).map(
-        lambda x: (x[0][0], x[0][1], x[1])  # (user, category, [sorted_products])
+        lambda x: (x[0][0], x[0][1], sorted(x[1]))  # (user, category, [sorted_products])
+    ).sortBy(
+        lambda x: (x[0], x[1])
     )
-    #print("Recommendations")
-    #recommendations.foreach(lambda x: print(x))
+    print("Recommendations")
+    recommendations.foreach(lambda x: print(x))
 
     return recommendations
 
