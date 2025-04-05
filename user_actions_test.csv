@@ -1,0 +1,14 @@
+Bob,Smart Phone,click,20241204173325
+Alice,Smart Phone,click,20241204163325
+Charlie,Cartoon Books,click,20241204183325
+Bob,Laptop,click,20241204180000
+Alice,Cartoon Books,click,20241204171000
+Charlie,Designer Jeans,view_details,20241204190000
+Bob,Smart Phone,favorite,20241204173400
+Alice,Smart Phone,add_to_cart,20241204163400
+Charlie,Cartoon Books,purchase,20241204184000
+Bob,Laptop,add_to_cart,20241204180500
+Alice,Cartoon Books,purchase,20241204171500
+Bob,Laptop,purchase,20241204181000
+Alice,Smart Phone,purchase,20241204170000
+Bob,Smart Phone,purchase,20241204173326
